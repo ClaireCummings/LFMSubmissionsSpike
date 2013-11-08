@@ -12,14 +12,14 @@ namespace LFM.LandRegistry.SubmissionsService.UnitTests
         private readonly string _username;
         private readonly string _password;
         private readonly ISubmitter _fakeSubmitter;
-        private readonly Lrapp1SubmissionService _sut;
 
         public When_submissions_service_is_asked_to_send_an_LRAPP_package()
         {
-            var attachments = new List<Lrap1Attachment>();
-
-            attachments.Add(new Lrap1Attachment() {Payload = "Attachment 1 payload data"});
-            attachments.Add(new Lrap1Attachment() {Payload = "Attachment 2 payload data"});
+            var attachments = new List<Lrap1Attachment>
+            {
+                new Lrap1Attachment() {Payload = "Attachment 1 payload data"},
+                new Lrap1Attachment() {Payload = "Attachment 2 payload data"}
+            };
 
             _package = new Lrapp1Package()
             {
@@ -32,9 +32,9 @@ namespace LFM.LandRegistry.SubmissionsService.UnitTests
 
             _fakeSubmitter = A.Fake<ISubmitter>();
 
-            _sut = new Lrapp1SubmissionService { Submitter = _fakeSubmitter };
+            var sut = new Lrapp1SubmissionService { Submitter = _fakeSubmitter };
 
-            _sut.Submit(_username, _password, _package);
+            sut.Submit(_username, _password, _package);
         }
 
         [Fact]
@@ -67,9 +67,16 @@ namespace LFM.LandRegistry.SubmissionsService.UnitTests
                 Payload = _package.Payload
             };
 
-            // todo:  Enaure Application ID matches that on the main Application
-            A.CallTo(() => _fakeSubmitter.Send(A<SubmitLrapp1AttachmentCommand>.That.Matches(
+            A.CallTo(() => _fakeSubmitter.Send(A<SubmitLrapp1Command>.That.Matches(
                 c => c.Username == command.Username &&
+                     c.Password == command.Password &&
+                     c.Payload == _package.Payload)))
+                .Returns(new SubmitLrap1Result() {Command = new SubmitLrapp1Command(){ApplicationId = command.ApplicationId}});
+
+            // todo:  Ensure Application ID matches that on the main Application
+            A.CallTo(() => _fakeSubmitter.Send(A<SubmitLrapp1AttachmentCommand>.That.Matches(
+                c => c.ApplicationId == command.ApplicationId &&
+                    c.Username == command.Username &&
                 c.Password == command.Password &&
                 c.Payload == _package.Attachments[0].Payload)))
                 .MustHaveHappened();

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Mime;
 
 namespace LFM.LandRegistry.SubmissionsService
 {
@@ -8,9 +9,11 @@ namespace LFM.LandRegistry.SubmissionsService
 
         public void Submit(string username, string password, Lrapp1Package lrapp1Package)
         {
+            var applicationId = Guid.NewGuid().ToString();
+
             Submitter.Send(new SubmitLrapp1Command()
             {
-                ApplicationId = Guid.NewGuid().ToString(),
+                ApplicationId = applicationId,
                 Username = username,
                 Password = password,
                 Payload = lrapp1Package.Payload
@@ -21,7 +24,7 @@ namespace LFM.LandRegistry.SubmissionsService
                 Submitter.Send(new SubmitLrapp1AttachmentCommand()
                 {
                     AttachmentId = Guid.NewGuid().ToString(),
-                    ApplicationId = Guid.NewGuid().ToString(),
+                    ApplicationId = applicationId,
                     Username = username,
                     Password = password,
                     Payload = attachment.Payload
