@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{620B38AA-F0C5-42A3-A5BD-44F5929DD42C}</ProjectGuid>
+    <ProjectGuid>{A52DB5B1-3318-4751-B166-56F895029B22}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LFM.LandRegistry.SubmissionsService</RootNamespace>
-    <AssemblyName>LFM.LandRegistry.SubmissionsService</AssemblyName>
+    <RootNamespace>LFM.LandRegistry.CommsService.UnitTests</RootNamespace>
+    <AssemblyName>LFM.LandRegistry.CommsService.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FakeItEasy">
+      <HintPath>..\packages\FakeItEasy.1.14.0\lib\net40\FakeItEasy.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -37,16 +40,25 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="xunit">
+      <HintPath>..\packages\xunit.1.9.2\lib\net20\xunit.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.extensions">
+      <HintPath>..\packages\xunit.extensions.1.9.2\lib\net20\xunit.extensions.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Lrap1Attachment.cs" />
-    <Compile Include="Lrap1Package.cs" />
-    <Compile Include="Lrap1SubmissionService.cs" />
-    <Compile Include="ISubmitter.cs" />
+    <Compile Include="CommunicationServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SubmitLrap1Result.cs" />
-    <Compile Include="SubmitLrap1AttachmentCommand.cs" />
-    <Compile Include="SubmitLrap1Command.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LFM.LandRegistry.CommsService\LFM.LandRegistry.CommsService.csproj">
+      <Project>{7b03b010-8e1b-49af-95b6-6e3037c5ce12}</Project>
+      <Name>LFM.LandRegistry.CommsService</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

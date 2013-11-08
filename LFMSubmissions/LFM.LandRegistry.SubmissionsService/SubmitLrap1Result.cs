@@ -2,6 +2,6 @@
 {
     public class SubmitLrap1Result
     {
-        public SubmitLrapp1Command Command { get; set; }        
+        public SubmitLrap1Command Command { get; set; }        
     }
 }

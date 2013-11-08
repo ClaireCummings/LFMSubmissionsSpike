@@ -4,7 +4,7 @@ namespace LFM.LandRegistry.SubmissionsService
 {
     public interface ISubmitter
     {
-        SubmitLrap1Result Send(SubmitLrapp1Command command);
-        void Send(SubmitLrapp1AttachmentCommand command);
+        SubmitLrap1Result Send(SubmitLrap1Command command);
+        void Send(SubmitLrap1AttachmentCommand command);
     }
 }

@@ -3,28 +3,28 @@ using System.Net.Mime;
 
 namespace LFM.LandRegistry.SubmissionsService
 {
-    public class Lrapp1SubmissionService
+    public class Lrap1SubmissionService
     {
         public ISubmitter Submitter { get; set; }
 
-        public void Submit(string username, string password, Lrapp1Package lrapp1Package)
+        public void Submit(string username, string password, Lrap1Package lrap1Package)
         {
             var applicationId = Guid.NewGuid().ToString();
 
-            Submitter.Send(new SubmitLrapp1Command()
+            var result = Submitter.Send(new SubmitLrap1Command()
             {
                 ApplicationId = applicationId,
                 Username = username,
                 Password = password,
-                Payload = lrapp1Package.Payload
+                Payload = lrap1Package.Payload
             });
 
-            foreach (var attachment in lrapp1Package.Attachments)
+            foreach (var attachment in lrap1Package.Attachments)
             {
-                Submitter.Send(new SubmitLrapp1AttachmentCommand()
+                Submitter.Send(new SubmitLrap1AttachmentCommand()
                 {
                     AttachmentId = Guid.NewGuid().ToString(),
-                    ApplicationId = applicationId,
+                    ApplicationId = result.Command.ApplicationId,
                     Username = username,
                     Password = password,
                     Payload = attachment.Payload

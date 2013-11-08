@@ -2,7 +2,7 @@
 
 namespace LFM.LandRegistry.SubmissionsService
 {
-    public class Lrapp1Package
+    public class Lrap1Package
     {
         public string Payload { get; set; }
         public List<Lrap1Attachment> Attachments { get; set; }

@@ -1,6 +1,6 @@
 ﻿namespace LFM.LandRegistry.SubmissionsService
 {
-    public class SubmitLrapp1Command
+    public class SubmitLrap1Command
     {
         public string ApplicationId { get; set; }
         public string Username { get; set; }

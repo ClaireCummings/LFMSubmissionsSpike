@@ -12,6 +12,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{F76ABF
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LFM.LandRegistry.CommsService.UnitTests", "LFM.LandRegistry.CommsService.UnitTests\LFM.LandRegistry.CommsService.UnitTests.csproj", "{A52DB5B1-3318-4751-B166-56F895029B22}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LFM.LandRegistry.CommsService", "LFM.LandRegistry.CommsService\LFM.LandRegistry.CommsService.csproj", "{7B03B010-8E1B-49AF-95B6-6E3037C5CE12}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +30,14 @@ Global
 		{C85B8C2B-926A-4CDE-9C90-8DC8D8127373}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C85B8C2B-926A-4CDE-9C90-8DC8D8127373}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C85B8C2B-926A-4CDE-9C90-8DC8D8127373}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A52DB5B1-3318-4751-B166-56F895029B22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A52DB5B1-3318-4751-B166-56F895029B22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A52DB5B1-3318-4751-B166-56F895029B22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A52DB5B1-3318-4751-B166-56F895029B22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B03B010-8E1B-49AF-95B6-6E3037C5CE12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B03B010-8E1B-49AF-95B6-6E3037C5CE12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B03B010-8E1B-49AF-95B6-6E3037C5CE12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B03B010-8E1B-49AF-95B6-6E3037C5CE12}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
