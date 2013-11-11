@@ -59,6 +59,14 @@
       <Project>{7b03b010-8e1b-49af-95b6-6e3037c5ce12}</Project>
       <Name>LFM.LandRegistry.CommsService</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LFM.LandRegistry.SubmissionsService\LFM.LandRegistry.SubmissionsService.csproj">
+      <Project>{620B38AA-F0C5-42A3-A5BD-44F5929DD42C}</Project>
+      <Name>LFM.LandRegistry.SubmissionsService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LFM.LandRegistry\LFM.LandRegistry.csproj">
+      <Project>{EDAD3745-3AAA-462D-AE87-358F71BF2259}</Project>
+      <Name>LFM.LandRegistry</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
