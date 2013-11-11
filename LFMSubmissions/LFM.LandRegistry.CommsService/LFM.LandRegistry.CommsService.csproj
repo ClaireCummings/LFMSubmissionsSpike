@@ -52,6 +52,10 @@
       <Project>{edad3745-3aaa-462d-ae87-358f71bf2259}</Project>
       <Name>LFM.LandRegistry</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LFM\LFM.csproj">
+      <Project>{6231D7E6-BFD0-4712-B65C-A1EEA91DE9AF}</Project>
+      <Name>LFM</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

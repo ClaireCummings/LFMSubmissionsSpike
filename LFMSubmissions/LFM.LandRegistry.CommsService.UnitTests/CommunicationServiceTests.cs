@@ -1,5 +1,6 @@
 ﻿using System;
 using FakeItEasy;
+using LFM.LandRegistry.Commands;
 using Xunit;
 
 namespace LFM.LandRegistry.CommsService.UnitTests

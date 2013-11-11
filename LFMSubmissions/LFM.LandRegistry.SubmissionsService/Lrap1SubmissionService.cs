@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Mime;
+using LFM.LandRegistry.Commands;
 
 namespace LFM.LandRegistry.SubmissionsService
 {

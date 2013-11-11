@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using FakeItEasy;
 using FakeItEasy.ExtensionSyntax;
+using LFM.LandRegistry.Commands;
 using Xunit;
 using Xunit.Extensions;
 
