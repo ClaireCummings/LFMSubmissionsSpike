@@ -8,12 +8,11 @@ namespace LFM.MessageService
 {
     public class Lrap1Processor : IHandleMessages<SubmitLrap1Command>
     {
-        public IBus Bus { get; set; }
         public IProcessMessages<SubmitLrap1Command> MessageProcessor { get; set; }
 
         public void Handle(SubmitLrap1Command message)
         {
-            MessageProcessor.Process(message);
+           MessageProcessor.Process(message);
         }
     }
 }

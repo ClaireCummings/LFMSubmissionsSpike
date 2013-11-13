@@ -8,13 +8,13 @@ using Xunit.Extensions;
 
 namespace LFM.LandRegistry.SubmissionsService.UnitTests
 {
-    public class When_submissions_service_is_asked_to_send_an_LRAPP_package
+    public class When_the_submissions_service_is_asked_to_send_an_LRAPP_package
     {
         private readonly Lrap1Package _package;
         private readonly ISendMessages _fakeMessageSender;
         private readonly SubmitLrap1Command _submitLrap1command;
 
-        public When_submissions_service_is_asked_to_send_an_LRAPP_package()
+        public When_the_submissions_service_is_asked_to_send_an_LRAPP_package()
         {
             var attachments = new List<Lrap1Attachment>
             {
@@ -52,7 +52,7 @@ namespace LFM.LandRegistry.SubmissionsService.UnitTests
         }
 
         [Fact]
-        public void the_main_application_is_sent_to_the_LRAP1_service()
+        public void the_main_application_is_sent_to_the_messaging_service()
         {
             A.CallTo(() => _fakeMessageSender.Send(A<SubmitLrap1Command>.That.Matches(
                 c => c.Username == _submitLrap1command.Username &&
@@ -62,7 +62,7 @@ namespace LFM.LandRegistry.SubmissionsService.UnitTests
         }
 
         [Fact]
-        public void the_first_attachment_is_sent_to_the_LRAP1_Attachment_service()
+        public void the_first_attachment_is_sent_to_the_messaging_service()
         {
             A.CallTo(() => _fakeMessageSender.Send(A<SubmitLrap1AttachmentCommand>.That.Matches(
                 c => c.ApplicationId == _submitLrap1command.ApplicationId &&
@@ -73,7 +73,7 @@ namespace LFM.LandRegistry.SubmissionsService.UnitTests
         }
 
         [Fact]
-        public void the_second_attachment_is_sent_to_the_LRPP1_Attachment_service()
+        public void the_second_attachment_is_sent_to_the_messaging_service()
         {
             A.CallTo(() => _fakeMessageSender.Send(A<SubmitLrap1AttachmentCommand>.That.Matches(
                 c => c.ApplicationId == _submitLrap1command.ApplicationId &&
@@ -81,6 +81,65 @@ namespace LFM.LandRegistry.SubmissionsService.UnitTests
                      c.Password == _submitLrap1command.Password &&
                      c.Payload == _package.Attachments[1].Payload)))
                 .MustHaveHappened();
+        }
+    }
+
+    public class When_the_messaging_service_processes_an_LRAP1_submission
+    {
+        public ICommsService _fakeCommsService;
+        public ISendMessages _fakeMessageSender;
+        public Lrap1Processor _sut;
+        public SubmitLrap1Command _command;
+
+
+        public When_the_messaging_service_processes_an_LRAP1_submission()
+        {
+            //Arrange
+            _fakeCommsService = A.Fake<ICommsService>();
+            _fakeMessageSender = A.Fake<ISendMessages>();
+
+            _sut = new Lrap1Processor
+            {
+                CommsService = _fakeCommsService,
+                MessageSender = _fakeMessageSender
+            };
+
+            _command = new SubmitLrap1Command()
+            {
+                ApplicationId = "123456789",
+                Username = "LRUserName",
+                Password = "LRPassword",
+                Payload = "Payload"
+            };
+        }
+
+        [Theory]
+        [InlineData (ResponseType.Acknowledgment)]
+        [InlineData(ResponseType.Rejection)]
+        [InlineData(ResponseType.None)]
+        public void the_LRAP1_is_submitted_to_the_AgentGateway(ResponseType responseType)
+        {
+            //Arrange
+            A.CallTo(() => _fakeCommsService.Send(_command)).Returns(responseType);
+
+            //Act
+            _sut.Process(_command);
+
+            //Assert
+            A.CallTo(()=> _fakeCommsService.Send(A<SubmitLrap1Command>.Ignored)).MustHaveHappened(Repeated.Exactly.Once);
+        }
+
+        [Fact]
+        public void the_message_is_resent_if_no_response_is_returned()
+        {
+            //Arrange
+            A.CallTo(() => _fakeCommsService.Send(_command)).Returns(ResponseType.None);
+
+            //Act
+            _sut.Process(_command);
+
+            //Assert
+            A.CallTo(() => _fakeMessageSender.Send(A<SubmitLrap1Command>.Ignored)).MustHaveHappened(Repeated.Exactly.Once);
         }
     }
 }
