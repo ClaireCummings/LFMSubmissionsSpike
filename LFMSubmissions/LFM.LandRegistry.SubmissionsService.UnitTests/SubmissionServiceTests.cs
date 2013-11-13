@@ -47,7 +47,7 @@ namespace LFM.LandRegistry.SubmissionsService.UnitTests
                         Command = _submitLrap1command
                     });
 
-            var sut = new Lrap1SubmissionService { MessageSender = _fakeMessageSender };
+            var sut = new Lrap1SubmissionService(_fakeMessageSender);
             sut.Submit(_submitLrap1command.Username,_submitLrap1command.Password, _package);
         }
 
@@ -98,11 +98,7 @@ namespace LFM.LandRegistry.SubmissionsService.UnitTests
             _fakeCommsService = A.Fake<ICommsService>();
             _fakeMessageSender = A.Fake<ISendMessages>();
 
-            _sut = new Lrap1Processor
-            {
-                CommsService = _fakeCommsService,
-                MessageSender = _fakeMessageSender
-            };
+            _sut = new Lrap1Processor(_fakeMessageSender, _fakeCommsService);
 
             _command = new SubmitLrap1Command()
             {

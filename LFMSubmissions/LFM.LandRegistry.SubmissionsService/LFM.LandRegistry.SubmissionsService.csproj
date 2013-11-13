@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.3.1.5\lib\net40\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,16 +47,28 @@
     <Compile Include="Lrap1Processor.cs" />
     <Compile Include="Lrap1SubmissionService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SubmissionsServiceModule.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LFM.LandRegistry.CommsService\LFM.LandRegistry.CommsService.csproj">
+      <Project>{7B03B010-8E1B-49AF-95B6-6E3037C5CE12}</Project>
+      <Name>LFM.LandRegistry.CommsService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LFM.LandRegistry\LFM.LandRegistry.csproj">
       <Project>{edad3745-3aaa-462d-ae87-358f71bf2259}</Project>
       <Name>LFM.LandRegistry</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LFM.Submissions.AgentServices\LFM.Submissions.AgentServices.csproj">
+      <Project>{3182D968-1616-405B-844A-7F24FA717AA6}</Project>
+      <Name>LFM.Submissions.AgentServices</Name>
     </ProjectReference>
     <ProjectReference Include="..\LFM\LFM.csproj">
       <Project>{6231d7e6-bfd0-4712-b65c-a1eea91de9af}</Project>
       <Name>LFM</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

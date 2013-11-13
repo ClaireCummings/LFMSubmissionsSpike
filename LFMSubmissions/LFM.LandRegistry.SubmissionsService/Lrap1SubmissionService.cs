@@ -6,13 +6,18 @@ namespace LFM.LandRegistry.SubmissionsService
 {
     public class Lrap1SubmissionService
     {
-        public ISendMessages MessageSender { get; set; }
+        private readonly ISendMessages _messageSender;
+
+        public Lrap1SubmissionService(ISendMessages messageSender)
+        {
+            _messageSender = messageSender;
+        }
 
         public void Submit(string username, string password, Lrap1Package lrap1Package)
         {
             var applicationId = Guid.NewGuid().ToString();
 
-            var result = MessageSender.Send(new SubmitLrap1Command()
+            var result = _messageSender.Send(new SubmitLrap1Command()
             {
                 ApplicationId = applicationId,
                 Username = username,
@@ -20,17 +25,17 @@ namespace LFM.LandRegistry.SubmissionsService
                 Payload = lrap1Package.Payload
             });
 
-            foreach (var attachment in lrap1Package.Attachments)
-            {
-                MessageSender.Send(new SubmitLrap1AttachmentCommand()
-                {
-                    AttachmentId = Guid.NewGuid().ToString(),
-                    ApplicationId = result.Command.ApplicationId,
-                    Username = username,
-                    Password = password,
-                    Payload = attachment.Payload
-                });
-            }
+//            foreach (var attachment in lrap1Package.Attachments)
+//            {
+//                _messageSender.Send(new SubmitLrap1AttachmentCommand()
+//                {
+//                    AttachmentId = Guid.NewGuid().ToString(),
+//                    ApplicationId = result.Command.ApplicationId,
+//                    Username = username,
+//                    Password = password,
+//                    Payload = attachment.Payload
+//                });
+//            }
         }
     }
 }

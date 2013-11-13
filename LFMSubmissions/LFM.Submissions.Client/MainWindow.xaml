@@ -1,0 +1,8 @@
+﻿<Window x:Class="LFM.Submissions.Client.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Button x:Name="submitLRAP1Button" Content="Submit LRAP1 Package" HorizontalAlignment="Left" Height="47" Margin="95,10,0,0" VerticalAlignment="Top" Width="333" FontSize="30" Click="submitLRAP1Button_Click"/>
+    </Grid>
+</Window>

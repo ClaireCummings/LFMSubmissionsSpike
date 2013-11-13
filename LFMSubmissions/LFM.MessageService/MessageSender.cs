@@ -7,11 +7,16 @@ namespace LFM.MessageService
 {
     public class MessageSender : ISendMessages
     {
-        public IBus Bus { get; set; }
+        public IBus _bus;
+
+        public MessageSender(IBus bus)
+        {
+            _bus = bus;
+        }
 
         public SubmitLrap1Result Send(SubmitLrap1Command command)
         {
-            Bus.SendLocal(command);
+            _bus.Send(command);
             return  new SubmitLrap1Result()
             {
                 Command = command

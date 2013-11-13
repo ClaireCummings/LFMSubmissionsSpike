@@ -1,4 +1,8 @@
 
+using Autofac;
+using Autofac.Core;
+using LFM.LandRegistry.SubmissionsService;
+
 namespace LFM.MessageService
 {
     using NServiceBus;
@@ -11,8 +15,13 @@ namespace LFM.MessageService
     {
 	    public void Init()
 	    {
+	        var builder = new ContainerBuilder();
+            builder.RegisterModule<MessageServiceModule>();
+            builder.RegisterModule<SubmissionsServiceModule>();
+
 	        Configure.With()
-	            .MessageConventions();
+	            .MessageConventions()
+	            .AutofacBuilder(builder.Build());
 	    }
     }
 }

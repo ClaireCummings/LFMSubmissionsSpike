@@ -4,16 +4,22 @@ namespace LFM.LandRegistry.SubmissionsService
 {
     public class Lrap1Processor : IProcessMessages<SubmitLrap1Command>
     {
-        public ISendMessages MessageSender { get; set; }
-        public ICommsService CommsService { get; set; }
+        public ISendMessages _messageSender;
+        public ICommsService _commsService;
+
+        public Lrap1Processor(ISendMessages messageSender, ICommsService commsService)
+        {
+            _messageSender = messageSender;
+            _commsService = commsService;
+        }
 
         public void Process(SubmitLrap1Command message)
         {
-            var response = CommsService.Send(message);
+            var response = _commsService.Send(message);
 
             if (response == ResponseType.None)
             {
-                MessageSender.Send(message);
+                _messageSender.Send(message);
             }
         }
     }
