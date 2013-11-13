@@ -11,7 +11,7 @@ namespace LFM.LandRegistry.SubmissionsService.UnitTests
     public class When_submissions_service_is_asked_to_send_an_LRAPP_package
     {
         private readonly Lrap1Package _package;
-        private readonly ISubmitter _fakeSubmitter;
+        private readonly ISendMessages _fakeMessageSender;
         private readonly SubmitLrap1Command _submitLrap1command;
 
         public When_submissions_service_is_asked_to_send_an_LRAPP_package()
@@ -36,9 +36,9 @@ namespace LFM.LandRegistry.SubmissionsService.UnitTests
                 Payload = _package.Payload
             };
 
-            _fakeSubmitter = A.Fake<ISubmitter>();
+            _fakeMessageSender = A.Fake<ISendMessages>();
 
-            A.CallTo(() => _fakeSubmitter.Send(A<SubmitLrap1Command>.That.Matches(
+            A.CallTo(() => _fakeMessageSender.Send(A<SubmitLrap1Command>.That.Matches(
                 c => c.Username == _submitLrap1command.Username &&
                      c.Password == _submitLrap1command.Password &&
                      c.Payload == _submitLrap1command.Payload)))
@@ -47,14 +47,14 @@ namespace LFM.LandRegistry.SubmissionsService.UnitTests
                         Command = _submitLrap1command
                     });
 
-            var sut = new Lrap1SubmissionService { Submitter = _fakeSubmitter };
+            var sut = new Lrap1SubmissionService { MessageSender = _fakeMessageSender };
             sut.Submit(_submitLrap1command.Username,_submitLrap1command.Password, _package);
         }
 
         [Fact]
         public void the_main_application_is_sent_to_the_LRAP1_service()
         {
-            A.CallTo(() => _fakeSubmitter.Send(A<SubmitLrap1Command>.That.Matches(
+            A.CallTo(() => _fakeMessageSender.Send(A<SubmitLrap1Command>.That.Matches(
                 c => c.Username == _submitLrap1command.Username &&
                      c.Password == _submitLrap1command.Password &&
                      c.Payload == _submitLrap1command.Payload)))
@@ -64,7 +64,7 @@ namespace LFM.LandRegistry.SubmissionsService.UnitTests
         [Fact]
         public void the_first_attachment_is_sent_to_the_LRAP1_Attachment_service()
         {
-            A.CallTo(() => _fakeSubmitter.Send(A<SubmitLrap1AttachmentCommand>.That.Matches(
+            A.CallTo(() => _fakeMessageSender.Send(A<SubmitLrap1AttachmentCommand>.That.Matches(
                 c => c.ApplicationId == _submitLrap1command.ApplicationId &&
                      c.Username == _submitLrap1command.Username &&
                      c.Password == _submitLrap1command.Password &&
@@ -75,7 +75,7 @@ namespace LFM.LandRegistry.SubmissionsService.UnitTests
         [Fact]
         public void the_second_attachment_is_sent_to_the_LRPP1_Attachment_service()
         {
-            A.CallTo(() => _fakeSubmitter.Send(A<SubmitLrap1AttachmentCommand>.That.Matches(
+            A.CallTo(() => _fakeMessageSender.Send(A<SubmitLrap1AttachmentCommand>.That.Matches(
                 c => c.ApplicationId == _submitLrap1command.ApplicationId &&
                      c.Username == _submitLrap1command.Username &&
                      c.Password == _submitLrap1command.Password &&

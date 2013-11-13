@@ -5,7 +5,7 @@ using NServiceBus;
 
 namespace LFM.MessageService
 {
-    public class Submitter : ISubmitter
+    public class MessageSender : ISendMessages
     {
         public IBus Bus { get; set; }
 

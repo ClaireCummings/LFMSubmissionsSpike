@@ -7,7 +7,7 @@ using LFM.LandRegistry.Commands;
 
 namespace LFM.LandRegistry.CommsService
 {
-    public class CommsService
+    public class CommsService : ICommsService
     {
         private readonly IEdrsCommunicator _edrsCommunicator;
 

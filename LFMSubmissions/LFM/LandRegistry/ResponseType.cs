@@ -1,4 +1,4 @@
-namespace LFM.LandRegistry.CommsService
+namespace LFM.LandRegistry
 {
     public enum ResponseType
     {

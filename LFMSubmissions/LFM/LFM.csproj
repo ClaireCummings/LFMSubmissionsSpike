@@ -39,9 +39,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ISubmitter.cs" />
+    <Compile Include="IProcessMessages.cs" />
+    <Compile Include="ISendMessages.cs" />
     <Compile Include="LandRegistry\Commands\SubmitLrap1AttachmentCommand.cs" />
     <Compile Include="LandRegistry\Commands\SubmitLrap1Command.cs" />
+    <Compile Include="LandRegistry\ICommsService.cs" />
+    <Compile Include="LandRegistry\ResponseType.cs" />
     <Compile Include="LandRegistry\SubmitLrap1Result.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

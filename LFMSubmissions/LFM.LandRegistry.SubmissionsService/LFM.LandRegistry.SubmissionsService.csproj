@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Lrap1Attachment.cs" />
     <Compile Include="Lrap1Package.cs" />
+    <Compile Include="Lrap1Processor.cs" />
     <Compile Include="Lrap1SubmissionService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

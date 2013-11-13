@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FakeItEasy;
+using LFM.LandRegistry;
 using LFM.LandRegistry.Commands;
 using LFM.LandRegistry.CommsService;
 using NServiceBus;
