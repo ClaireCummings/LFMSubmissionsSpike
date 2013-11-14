@@ -1,5 +1,4 @@
-﻿using System;
-using LFM.LandRegistry;
+﻿using LFM.LandRegistry;
 using LFM.LandRegistry.Commands;
 using NServiceBus;
 
@@ -25,7 +24,9 @@ namespace LFM.MessageService
 
         public void Send(SubmitLrap1AttachmentCommand command)
         {
-            throw new NotImplementedException();
+            _bus.Send(command);
+
+
         }
     }
 }

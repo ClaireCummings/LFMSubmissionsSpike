@@ -3,7 +3,7 @@
   <arg0>
     <MessageId xmlns="http://www.oscre.org/ns/eReg-Final/2012/RequestAttachmentV1_0">messsage1</MessageId>
     <ExternalReference xmlns="http://www.oscre.org/ns/eReg-Final/2012/RequestAttachmentV1_0">CP/Parrett/Jenkins</ExternalReference>
-    <ApplicationMessageId xmlns="http://www.oscre.org/ns/eReg-Final/2012/RequestAttachmentV1_0">testoutofhours</ApplicationMessageId>
+    <ApplicationMessageId xmlns="http://www.oscre.org/ns/eReg-Final/2012/RequestAttachmentV1_0">testinvalidapplicationmessageid</ApplicationMessageId>
     <ApplicationService xmlns="http://www.oscre.org/ns/eReg-Final/2012/RequestAttachmentV1_0">87</ApplicationService>
     <AttachmentId xmlns="http://www.oscre.org/ns/eReg-Final/2012/RequestAttachmentV1_0">1</AttachmentId>
     <CertifiedCopy xmlns="http://www.oscre.org/ns/eReg-Final/2012/RequestAttachmentV1_0">Original</CertifiedCopy>

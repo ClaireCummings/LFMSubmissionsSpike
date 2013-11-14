@@ -2,6 +2,7 @@ namespace LFM.LandRegistry.CommsService
 {
     public class Lrap1AttachmentRequest
     {
+        public string AttachmentId { get; set; }
         public string ApplicationId { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }

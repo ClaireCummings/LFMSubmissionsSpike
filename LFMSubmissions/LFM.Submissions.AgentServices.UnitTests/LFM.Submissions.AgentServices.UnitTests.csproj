@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{442BB3EA-3BF7-4004-B28E-8EC9917E8B84}</ProjectGuid>
+    <ProjectGuid>{BEA3875D-58A6-46BB-B3E5-2B2D334E5839}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LFM.MessageService</RootNamespace>
-    <AssemblyName>LFM.MessageService</AssemblyName>
+    <RootNamespace>LFM.Submissions.AgentServices.UnitTests</RootNamespace>
+    <AssemblyName>LFM.Submissions.AgentServices.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,20 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac">
-      <HintPath>..\packages\Autofac.3.1.5\lib\net40\Autofac.dll</HintPath>
-    </Reference>
-    <Reference Include="NServiceBus">
-      <HintPath>..\packages\NServiceBus.Interfaces.4.2.0\lib\net40\NServiceBus.dll</HintPath>
-    </Reference>
-    <Reference Include="NServiceBus.Core">
-      <HintPath>..\packages\NServiceBus.4.2.0\lib\net40\NServiceBus.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="NServiceBus.Host">
-      <HintPath>..\packages\NServiceBus.Host.4.2.0\lib\net40\NServiceBus.Host.exe</HintPath>
-    </Reference>
-    <Reference Include="NServiceBus.ObjectBuilder.Autofac">
-      <HintPath>..\packages\NServiceBus.Autofac.4.2.0\lib\net40\NServiceBus.ObjectBuilder.Autofac.dll</HintPath>
+    <Reference Include="FakeItEasy">
+      <HintPath>..\packages\FakeItEasy.1.14.0\lib\net40\FakeItEasy.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -52,14 +40,18 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="xunit">
+      <HintPath>..\packages\xunit.1.9.2\lib\net20\xunit.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.extensions">
+      <HintPath>..\packages\xunit.extensions.1.9.2\lib\net20\xunit.extensions.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EndpointConfig.cs" />
-    <Compile Include="Conventions.cs" />
-    <Compile Include="Lrap1Processor.cs" />
-    <Compile Include="MessageServiceModule.cs" />
+    <Compile Include="EdrsCommunicatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MessageSender.cs" />
+    <Compile Include="RequestGenerator.cs" />
+    <Compile Include="RequestSenderTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -70,10 +62,6 @@
       <Project>{7B03B010-8E1B-49AF-95B6-6E3037C5CE12}</Project>
       <Name>LFM.LandRegistry.CommsService</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LFM.LandRegistry.SubmissionsService\LFM.LandRegistry.SubmissionsService.csproj">
-      <Project>{620B38AA-F0C5-42A3-A5BD-44F5929DD42C}</Project>
-      <Name>LFM.LandRegistry.SubmissionsService</Name>
-    </ProjectReference>
     <ProjectReference Include="..\LFM.Submissions.AgentServices\LFM.Submissions.AgentServices.csproj">
       <Project>{3182D968-1616-405B-844A-7F24FA717AA6}</Project>
       <Name>LFM.Submissions.AgentServices</Name>
@@ -83,6 +71,21 @@
       <Name>LFM</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="TestXml\Attachment Service Test 1 XmlRequest.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestXml\Attachment Service Test 6 XmlRequest.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestXml\eDRS Test 1 XmlRequest.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestXml\eDRS Test 4 XmlRequest.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -91,8 +94,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <PropertyGroup>
-    <StartAction>Program</StartAction>
-    <StartProgram>$(ProjectDir)$(OutputPath)NServiceBus.Host.exe</StartProgram>
-  </PropertyGroup>
 </Project>

@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("LFM.LandRegistry.CommsService")]
+[assembly: AssemblyTitle("LFM.Submissions.AgentServices.UnitTests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("LFM.LandRegistry.CommsService")]
+[assembly: AssemblyProduct("LFM.Submissions.AgentServices.UnitTests")]
 [assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("02fd2bba-89d4-43ca-a6b3-cd0026a30d27")]
+[assembly: Guid("76d071ba-e092-45c5-aab1-4a3bb78615ea")]
 
 // Version information for an assembly consists of the following four values:
 //

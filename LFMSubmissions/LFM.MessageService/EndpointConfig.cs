@@ -1,7 +1,6 @@
-
 using Autofac;
-using Autofac.Core;
 using LFM.LandRegistry.SubmissionsService;
+using LFM.Submissions.AgentServices;
 
 namespace LFM.MessageService
 {
@@ -18,6 +17,7 @@ namespace LFM.MessageService
 	        var builder = new ContainerBuilder();
             builder.RegisterModule<MessageServiceModule>();
             builder.RegisterModule<SubmissionsServiceModule>();
+            builder.RegisterModule<AgentServicesModule>();
 
 	        Configure.With()
 	            .MessageConventions()

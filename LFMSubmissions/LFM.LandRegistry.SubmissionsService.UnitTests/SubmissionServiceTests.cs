@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using FakeItEasy;
-using FakeItEasy.ExtensionSyntax;
 using LFM.LandRegistry.Commands;
 using Xunit;
 using Xunit.Extensions;
@@ -86,11 +84,10 @@ namespace LFM.LandRegistry.SubmissionsService.UnitTests
 
     public class When_the_messaging_service_processes_an_LRAP1_submission
     {
-        public ICommsService _fakeCommsService;
-        public ISendMessages _fakeMessageSender;
-        public Lrap1Processor _sut;
-        public SubmitLrap1Command _command;
-
+        private readonly ICommsService _fakeCommsService;
+        private readonly ISendMessages _fakeMessageSender;
+        private readonly Lrap1Processor _sut;
+        private readonly SubmitLrap1Command _command;
 
         public When_the_messaging_service_processes_an_LRAP1_submission()
         {
@@ -136,6 +133,62 @@ namespace LFM.LandRegistry.SubmissionsService.UnitTests
 
             //Assert
             A.CallTo(() => _fakeMessageSender.Send(A<SubmitLrap1Command>.Ignored)).MustHaveHappened(Repeated.Exactly.Once);
+        }
+    }
+
+    public class When_the_messaging_service_processes_an_LRAP1Attachment_submission
+    {
+        private readonly ICommsService _fakeCommsService;
+        private readonly ISendMessages _fakeMessageSender;
+        private readonly Lrap1Processor _sut;
+        private readonly SubmitLrap1AttachmentCommand _command;
+
+
+        public When_the_messaging_service_processes_an_LRAP1Attachment_submission()
+        {
+            //Arrange
+            _fakeCommsService = A.Fake<ICommsService>();
+            _fakeMessageSender = A.Fake<ISendMessages>();
+
+            _sut = new Lrap1Processor(_fakeMessageSender, _fakeCommsService);
+
+            _command = new SubmitLrap1AttachmentCommand()
+            {
+                AttachmentId = "9876543210",
+                ApplicationId = "123456789",
+                Username = "LRUserName",
+                Password = "LRPassword",
+                Payload = "Payload"
+            };
+        }
+
+        [Theory]
+        [InlineData(ResponseType.Acknowledgment)]
+        [InlineData(ResponseType.Rejection)]
+        [InlineData(ResponseType.None)]
+        public void the_LRAP1Attachment_is_submitted_to_the_AgentGateway(ResponseType responseType)
+        {
+            //Arrange
+            A.CallTo(() => _fakeCommsService.Send(_command)).Returns(responseType);
+
+            //Act
+            _sut.Process(_command);
+
+            //Assert
+            A.CallTo(() => _fakeCommsService.Send(A<SubmitLrap1AttachmentCommand>.Ignored)).MustHaveHappened(Repeated.Exactly.Once);
+        }
+
+        [Fact]
+        public void the_message_is_resent_if_no_response_is_returned()
+        {
+            //Arrange
+            A.CallTo(() => _fakeCommsService.Send(_command)).Returns(ResponseType.None);
+
+            //Act
+            _sut.Process(_command);
+
+            //Assert
+            A.CallTo(() => _fakeMessageSender.Send(A<SubmitLrap1AttachmentCommand>.Ignored)).MustHaveHappened(Repeated.Exactly.Once);
         }
     }
 }

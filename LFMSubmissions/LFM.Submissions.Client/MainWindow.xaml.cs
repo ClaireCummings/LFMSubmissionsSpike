@@ -1,20 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.IO.Packaging;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Autofac;
 using LFM.LandRegistry.SubmissionsService;
 using LFM.MessageService;
 
@@ -36,13 +22,13 @@ namespace LFM.Submissions.Client
             
             var attachments = new List<Lrap1Attachment>
             {
-                new Lrap1Attachment() {Payload = File.ReadAllText(@"C:\GIT\LFMSubmissionsSpike\LFMSubmissions\LFM.Submissions.Client\TestXML\Attachment Service Test 8 XmlRequest.xml")},
-                new Lrap1Attachment() {Payload = File.ReadAllText(@"C:\GIT\LFMSubmissionsSpike\LFMSubmissions\LFM.Submissions.Client\TestXML\Attachment Service Test 8 XmlRequest.xml")}
+                new Lrap1Attachment() {Payload = File.ReadAllText("./TestXMLData/Attachment Service Test 1 XmlRequest.xml")},
+                new Lrap1Attachment() {Payload = File.ReadAllText("./TestXMLData/Attachment Service Test 1 XmlRequest.xml")}
             };
 
             var package = new Lrap1Package()
             {
-                Payload = File.ReadAllText(@"C:\GIT\LFMSubmissionsSpike\LFMSubmissions\LFM.Submissions.Client\TestXML\eDRS Test 4 XmlRequest.xml"),
+                Payload = File.ReadAllText("./TestXMLData/eDRS Test 4 XmlRequest.xml"),
                 Attachments = attachments
             };
 

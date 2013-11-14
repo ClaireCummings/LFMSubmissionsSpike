@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net.Mime;
 using LFM.LandRegistry.Commands;
 
 namespace LFM.LandRegistry.SubmissionsService
@@ -25,17 +24,17 @@ namespace LFM.LandRegistry.SubmissionsService
                 Payload = lrap1Package.Payload
             });
 
-//            foreach (var attachment in lrap1Package.Attachments)
-//            {
-//                _messageSender.Send(new SubmitLrap1AttachmentCommand()
-//                {
-//                    AttachmentId = Guid.NewGuid().ToString(),
-//                    ApplicationId = result.Command.ApplicationId,
-//                    Username = username,
-//                    Password = password,
-//                    Payload = attachment.Payload
-//                });
-//            }
+            foreach (var attachment in lrap1Package.Attachments)
+            {
+                _messageSender.Send(new SubmitLrap1AttachmentCommand()
+                {
+                    AttachmentId = Guid.NewGuid().ToString(),
+                    ApplicationId = result.Command.ApplicationId,
+                    Username = username,
+                    Password = password,
+                    Payload = attachment.Payload
+                });
+            }
         }
     }
 }

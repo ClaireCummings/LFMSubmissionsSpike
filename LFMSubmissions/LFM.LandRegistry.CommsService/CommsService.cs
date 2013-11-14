@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using LFM.LandRegistry.Commands;
 
 namespace LFM.LandRegistry.CommsService
@@ -66,6 +62,9 @@ namespace LFM.LandRegistry.CommsService
 
             return _edrsCommunicator.Submit(new Lrap1AttachmentRequest()
             {
+                AttachmentId = submission.AttachmentId,
+                Username = submission.Username,
+                Password = submission.Password,
                 ApplicationId = submission.ApplicationId,
                 Payload = submission.Payload
             }).ResponseType;

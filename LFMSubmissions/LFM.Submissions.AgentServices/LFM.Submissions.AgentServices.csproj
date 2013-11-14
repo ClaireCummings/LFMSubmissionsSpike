@@ -46,12 +46,15 @@
   <ItemGroup>
     <Compile Include="AgentServicesModule.cs" />
     <Compile Include="DeserializationException.cs" />
+    <Compile Include="IObjectSerializer.cs" />
+    <Compile Include="IRequestSender.cs" />
     <Compile Include="LandRegistry\EdrsCommunicator.cs" />
     <Compile Include="LandRegistry\EdrsPoller.cs" />
     <Compile Include="LandRegistry\EdrsSender.cs" />
     <Compile Include="LandRegistry\Headers.cs" />
     <Compile Include="ObjectSerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RequestSender.cs" />
     <Compile Include="Service References\CorrespondenceService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

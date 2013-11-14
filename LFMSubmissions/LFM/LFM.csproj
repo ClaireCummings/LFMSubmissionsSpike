@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IMessageProcessor.cs" />
     <Compile Include="IProcessMessages.cs" />
     <Compile Include="ISendMessages.cs" />
     <Compile Include="LandRegistry\Commands\SubmitLrap1AttachmentCommand.cs" />

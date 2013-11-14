@@ -2,7 +2,7 @@
 
 namespace LFM.LandRegistry.SubmissionsService
 {
-    public class Lrap1Processor : IProcessMessages<SubmitLrap1Command>
+    public class Lrap1Processor : IProcessMessages<SubmitLrap1Command>, IProcessMessages<SubmitLrap1AttachmentCommand>
     {
         public ISendMessages _messageSender;
         public ICommsService _commsService;
@@ -14,6 +14,16 @@ namespace LFM.LandRegistry.SubmissionsService
         }
 
         public void Process(SubmitLrap1Command message)
+        {
+            var response = _commsService.Send(message);
+
+            if (response == ResponseType.None)
+            {
+                _messageSender.Send(message);
+            }
+        }
+
+        public void Process(SubmitLrap1AttachmentCommand message)
         {
             var response = _commsService.Send(message);
 

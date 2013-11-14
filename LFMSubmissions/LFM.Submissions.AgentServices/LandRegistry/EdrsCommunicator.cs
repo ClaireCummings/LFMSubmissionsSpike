@@ -1,42 +1,42 @@
-﻿using System;
-using LFM.LandRegistry;
-using LFM.LandRegistry.CommsService;
-using System.Security.Cryptography.X509Certificates;
+﻿using LFM.LandRegistry.CommsService;
 
 namespace LFM.Submissions.AgentServices.LandRegistry
 {
     public class EdrsCommunicator : IEdrsCommunicator
     {
+        private readonly IObjectSerializer _objectSerializer;
+        public IRequestSender RequestSender { get; set; }
+
+        public EdrsCommunicator(IObjectSerializer objectSerializer)
+        {
+            _objectSerializer = objectSerializer;
+            RequestSender = new RequestSender();
+        }
+
         public Lrap1Response Submit(Lrap1Request request)
         {
             EdrsSubmissionService.RequestApplicationToChangeRegisterV1_0Type webRequest;
 
             webRequest =
-                ObjectSerializer
+                _objectSerializer
                     .XmlDeserializeFromString<EdrsSubmissionService.RequestApplicationToChangeRegisterV1_0Type>(
                         request.Payload);
 
             webRequest.MessageId = request.ApplicationId;
-
-            // create an instance of the client
-            var client = new EdrsSubmissionService.EDocumentRegistrationV1_0ServiceClient();
-
-            client.ChannelFactory.Credentials.ClientCertificate.SetCertificate(StoreLocation.CurrentUser, StoreName.My, X509FindType.FindBySerialNumber, "47 ce 29 6f");
-
-            // create a Header Instance
-            client.ChannelFactory.Endpoint.Behaviors.Add(new HMLRBGMessageEndpointBehavior(request.Username, request.Password));
-
-            // submit the request
-            var serviceResponse = client.eDocumentRegistration(webRequest);
-            
-            //TODO: return correct response from serviceResponse!!!!
-
-            return new Lrap1Response(){ResponseType = ResponseType.Acknowledgment};
+           
+            return RequestSender.Send(webRequest,request.Username,request.Password);
         }
 
         public Lrap1Response Submit(Lrap1AttachmentRequest request)
         {
-            throw new NotImplementedException();
+            EdrsAttachmentService.newAttachmentRequest webRequest;
+ 
+            webRequest =
+                    _objectSerializer.XmlDeserializeFromString<EdrsAttachmentService.newAttachmentRequest>(request.Payload);
+
+            webRequest.arg0.ApplicationMessageId = request.ApplicationId;
+            
+            return RequestSender.Send(webRequest, request.Username, request.Password);
         }
     }
 }
