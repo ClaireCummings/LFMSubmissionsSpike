@@ -1,7 +1,6 @@
 ﻿using System;
 using LFM.LandRegistry;
 using LFM.LandRegistry.CommsService;
-using LFM.Submissions.AgentServices.EdrsSubmissionService;
 using System.Security.Cryptography.X509Certificates;
 
 namespace LFM.Submissions.AgentServices.LandRegistry
@@ -20,7 +19,9 @@ namespace LFM.Submissions.AgentServices.LandRegistry
             webRequest.MessageId = request.ApplicationId;
 
             // create an instance of the client
-            var client = new EDocumentRegistrationV1_0ServiceClient();
+            var client = new EdrsSubmissionService.EDocumentRegistrationV1_0ServiceClient();
+
+            client.ChannelFactory.Credentials.ClientCertificate.SetCertificate(StoreLocation.CurrentUser, StoreName.My, X509FindType.FindBySerialNumber, "47 ce 29 6f");
 
             // create a Header Instance
             client.ChannelFactory.Endpoint.Behaviors.Add(new HMLRBGMessageEndpointBehavior(request.Username, request.Password));
@@ -29,7 +30,7 @@ namespace LFM.Submissions.AgentServices.LandRegistry
             var serviceResponse = client.eDocumentRegistration(webRequest);
             
             //TODO: return correct response from serviceResponse!!!!
-            
+
             return new Lrap1Response(){ResponseType = ResponseType.Acknowledgment};
         }
 

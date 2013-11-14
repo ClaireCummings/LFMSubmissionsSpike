@@ -36,6 +36,8 @@ namespace LFM.LandRegistry.CommsService
             return _edrsCommunicator.Submit(new Lrap1Request()
             {
                 ApplicationId = submission.ApplicationId,
+                Username = submission.Username,
+                Password = submission.Password,
                 Payload = submission.Payload
             }).ResponseType;
         }

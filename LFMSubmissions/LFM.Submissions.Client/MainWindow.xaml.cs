@@ -46,7 +46,7 @@ namespace LFM.Submissions.Client
                 Attachments = attachments
             };
 
-            submissionService.Submit("username","password",package);
+            submissionService.Submit("LRUser001","BGPassword001",package);
             MessageBox.Show("Package Submitted", "Success",MessageBoxButton.OK);
         }
 
