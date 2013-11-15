@@ -55,6 +55,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LFM.ApplicationServices\LFM.ApplicationServices.csproj">
+      <Project>{4d33cd7f-0165-4435-b003-eb7183d18bb8}</Project>
+      <Name>LFM.ApplicationServices</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LFM.LandRegistry.SubmissionsService\LFM.LandRegistry.SubmissionsService.csproj">
       <Project>{620b38aa-f0c5-42a3-a5bd-44f5929dd42c}</Project>
       <Name>LFM.LandRegistry.SubmissionsService</Name>

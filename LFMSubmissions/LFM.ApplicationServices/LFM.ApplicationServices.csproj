@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6231D7E6-BFD0-4712-B65C-A1EEA91DE9AF}</ProjectGuid>
+    <ProjectGuid>{4D33CD7F-0165-4435-B003-EB7183D18BB8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LFM</RootNamespace>
-    <AssemblyName>LFM</AssemblyName>
+    <RootNamespace>LFM.ApplicationServices</RootNamespace>
+    <AssemblyName>LFM.ApplicationServices</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -39,18 +39,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IMessageProcessor.cs" />
-    <Compile Include="IProcessMessages.cs" />
-    <Compile Include="ISendMessages.cs" />
-    <Compile Include="ILrap1SubmissionRepository.cs" />
-    <Compile Include="LandRegistry\Commands\SubmitLrap1AttachmentCommand.cs" />
-    <Compile Include="LandRegistry\Commands\SubmitLrap1Command.cs" />
-    <Compile Include="LandRegistry\ICommsService.cs" />
-    <Compile Include="LandRegistry\Lrap1Submission.cs" />
-    <Compile Include="LandRegistry\ResponseType.cs" />
-    <Compile Include="LandRegistry\SubmitLrap1Result.cs" />
+    <Compile Include="IHandleQuery.cs" />
+    <Compile Include="LandRegistry\Lrap1StatusQuery.cs" />
+    <Compile Include="LandRegistry\Lrap1StatusQueryResult.cs" />
+    <Compile Include="LandRegistry\SubmissionService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueryInvoker.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LFM\LFM.csproj">
+      <Project>{6231D7E6-BFD0-4712-B65C-A1EEA91DE9AF}</Project>
+      <Name>LFM</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

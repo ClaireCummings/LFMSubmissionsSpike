@@ -1,6 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows;
+using LFM.ApplicationServices;
+using LFM.ApplicationServices.LandRegistry;
+using LFM.Infrastructure.LandRegistry;
 using LFM.LandRegistry.SubmissionsService;
 using LFM.MessageService;
 
@@ -32,10 +36,17 @@ namespace LFM.Submissions.Client
                 Attachments = attachments
             };
 
-            submissionService.Submit("LRUser001","BGPassword001",package);
-            MessageBox.Show("Package Submitted", "Success",MessageBoxButton.OK);
+            var result = submissionService.Submit("LRUser001","BGPassword001",package);
+            applicationIdTextBox.Text = result.Command.ApplicationId;
+
+            MessageBox.Show(string.Format("Package Submitted{0}ApplicationId: {1}", Environment.NewLine ,result.ToString()), "Success", MessageBoxButton.OK);
         }
 
-      
+        private void getStatusButton_Click(object sender, RoutedEventArgs e)
+        {
+            var queryInvoker = new QueryInvoker(new SubmissionService(new Lrap1SubmissionRepository()));
+            var result = queryInvoker.Query<Lrap1StatusQuery,Lrap1StatusQueryResult>(new Lrap1StatusQuery() {ApplicationId = applicationIdTextBox.Text});
+            MessageBox.Show("Application Status: " + result.ResponseType.ToString(), "Status", MessageBoxButton.OK);
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace LFM.LandRegistry.SubmissionsService
             _messageSender = messageSender;
         }
 
-        public void Submit(string username, string password, Lrap1Package lrap1Package)
+        public SubmitLrap1Result Submit(string username, string password, Lrap1Package lrap1Package)
         {
             var applicationId = Guid.NewGuid().ToString();
 
@@ -35,6 +35,7 @@ namespace LFM.LandRegistry.SubmissionsService
                     Payload = attachment.Payload
                 });
             }
+            return result;
         }
     }
 }

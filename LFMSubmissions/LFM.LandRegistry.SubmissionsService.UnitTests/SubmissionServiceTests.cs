@@ -1,18 +1,21 @@
 ﻿using System.Collections.Generic;
 using FakeItEasy;
+using LFM.ApplicationServices;
+using LFM.ApplicationServices.LandRegistry;
 using LFM.LandRegistry.Commands;
 using Xunit;
 using Xunit.Extensions;
 
 namespace LFM.LandRegistry.SubmissionsService.UnitTests
 {
-    public class When_the_submissions_service_is_asked_to_send_an_LRAPP_package
+    public class When_the_submissions_service_is_asked_to_send_an_LRAP1_package
     {
         private readonly Lrap1Package _package;
         private readonly ISendMessages _fakeMessageSender;
         private readonly SubmitLrap1Command _submitLrap1command;
+        private readonly SubmitLrap1Result _response;
 
-        public When_the_submissions_service_is_asked_to_send_an_LRAPP_package()
+        public When_the_submissions_service_is_asked_to_send_an_LRAP1_package()
         {
             var attachments = new List<Lrap1Attachment>
             {
@@ -46,7 +49,7 @@ namespace LFM.LandRegistry.SubmissionsService.UnitTests
                     });
 
             var sut = new Lrap1SubmissionService(_fakeMessageSender);
-            sut.Submit(_submitLrap1command.Username,_submitLrap1command.Password, _package);
+            _response = sut.Submit(_submitLrap1command.Username,_submitLrap1command.Password, _package);
         }
 
         [Fact]
@@ -79,6 +82,12 @@ namespace LFM.LandRegistry.SubmissionsService.UnitTests
                      c.Password == _submitLrap1command.Password &&
                      c.Payload == _package.Attachments[1].Payload)))
                 .MustHaveHappened();
+        }
+
+        [Fact]
+        public void the_applicationId_is_returned()
+        {
+            Assert.Equal(_submitLrap1command.ApplicationId, _response.Command.ApplicationId);
         }
     }
 
@@ -189,6 +198,32 @@ namespace LFM.LandRegistry.SubmissionsService.UnitTests
 
             //Assert
             A.CallTo(() => _fakeMessageSender.Send(A<SubmitLrap1AttachmentCommand>.Ignored)).MustHaveHappened(Repeated.Exactly.Once);
+        }
+    }
+
+    public class When_the_submissions_service_requests_a_status_update_for_an_LRAP1_package
+    {
+        [Fact]
+        public void the_current_status_of_the_submission_is_returned()
+        {
+            //Arrange
+            var fakeLrap1Repository = A.Fake<ILrap1SubmissionRepository>();
+            var sut = new SubmissionService(fakeLrap1Repository);
+            var queryInvoker = new QueryInvoker(sut);
+
+            A.CallTo(() => fakeLrap1Repository.GetById(A<string>.Ignored))
+                .Returns(new Lrap1Submission() {ResponseType = ResponseType.Acknowledgment});
+            
+            //Act
+            var query = new Lrap1StatusQuery()
+            {
+                ApplicationId = "123456890"
+            };
+
+            var result = queryInvoker.Query<Lrap1StatusQuery, Lrap1StatusQueryResult>(query);
+
+            //Assert
+            Assert.Equal(ResponseType.Acknowledgment, result.ResponseType);
         }
     }
 }

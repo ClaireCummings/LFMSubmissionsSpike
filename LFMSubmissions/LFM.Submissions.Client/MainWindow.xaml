@@ -4,5 +4,7 @@
         Title="MainWindow" Height="350" Width="525">
     <Grid>
         <Button x:Name="submitLRAP1Button" Content="Submit LRAP1 Package" HorizontalAlignment="Left" Height="47" Margin="95,10,0,0" VerticalAlignment="Top" Width="333" FontSize="30" Click="submitLRAP1Button_Click"/>
+        <Button x:Name="getStatusButton" Content="Get Status" HorizontalAlignment="Left" Margin="405,106,0,0" VerticalAlignment="Top" Width="75" Click="getStatusButton_Click"/>
+        <TextBox x:Name="applicationIdTextBox" HorizontalAlignment="Left" Height="20" Margin="10,106,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="380"/>
     </Grid>
 </Window>

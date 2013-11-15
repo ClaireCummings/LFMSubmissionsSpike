@@ -30,6 +30,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LFM.Submissions.AgentServic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LFM.Submissions.AgentServices.UnitTests", "LFM.Submissions.AgentServices.UnitTests\LFM.Submissions.AgentServices.UnitTests.csproj", "{BEA3875D-58A6-46BB-B3E5-2B2D334E5839}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LFM.ApplicationServices", "LFM.ApplicationServices\LFM.ApplicationServices.csproj", "{4D33CD7F-0165-4435-B003-EB7183D18BB8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LFM.Infrastructure", "LFM.Infrastructure\LFM.Infrastructure.csproj", "{F248D502-8444-4DE5-8B36-EFDD6A27D6B5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -80,6 +84,14 @@ Global
 		{BEA3875D-58A6-46BB-B3E5-2B2D334E5839}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BEA3875D-58A6-46BB-B3E5-2B2D334E5839}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BEA3875D-58A6-46BB-B3E5-2B2D334E5839}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D33CD7F-0165-4435-B003-EB7183D18BB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D33CD7F-0165-4435-B003-EB7183D18BB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D33CD7F-0165-4435-B003-EB7183D18BB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D33CD7F-0165-4435-B003-EB7183D18BB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F248D502-8444-4DE5-8B36-EFDD6A27D6B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F248D502-8444-4DE5-8B36-EFDD6A27D6B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F248D502-8444-4DE5-8B36-EFDD6A27D6B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F248D502-8444-4DE5-8B36-EFDD6A27D6B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

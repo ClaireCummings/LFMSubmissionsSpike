@@ -106,6 +106,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LFM.ApplicationServices\LFM.ApplicationServices.csproj">
+      <Project>{4D33CD7F-0165-4435-B003-EB7183D18BB8}</Project>
+      <Name>LFM.ApplicationServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LFM.Infrastructure\LFM.Infrastructure.csproj">
+      <Project>{f248d502-8444-4de5-8b36-efdd6a27d6b5}</Project>
+      <Name>LFM.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LFM.LandRegistry.SubmissionsService\LFM.LandRegistry.SubmissionsService.csproj">
       <Project>{620b38aa-f0c5-42a3-a5bd-44f5929dd42c}</Project>
       <Name>LFM.LandRegistry.SubmissionsService</Name>
