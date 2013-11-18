@@ -39,6 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandInvoker.cs" />
+    <Compile Include="ICommandInvoker.cs" />
     <Compile Include="IHandleCommand.cs" />
     <Compile Include="IHandleQuery.cs" />
     <Compile Include="LandRegistry\CreateLrap1AttachmentQueryResult.cs" />
