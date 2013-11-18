@@ -44,7 +44,7 @@ namespace LFM.Submissions.Client
 
         private void getStatusButton_Click(object sender, RoutedEventArgs e)
         {
-            var queryInvoker = new QueryInvoker(new SubmissionService(new Lrap1SubmissionRepository()));
+            var queryInvoker = new QueryInvoker(new SubmissionDataService(new Lrap1SubmissionRepository()));
             var result = queryInvoker.Query<Lrap1StatusQuery,Lrap1StatusQueryResult>(new Lrap1StatusQuery() {ApplicationId = applicationIdTextBox.Text});
             MessageBox.Show("Application Status: " + result.ResponseType.ToString(), "Status", MessageBoxButton.OK);
         }

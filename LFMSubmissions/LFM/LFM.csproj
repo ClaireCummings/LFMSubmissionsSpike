@@ -45,7 +45,11 @@
     <Compile Include="ILrap1SubmissionRepository.cs" />
     <Compile Include="LandRegistry\Commands\SubmitLrap1AttachmentCommand.cs" />
     <Compile Include="LandRegistry\Commands\SubmitLrap1Command.cs" />
+    <Compile Include="LandRegistry\CreateLrap1AttachmentCommand.cs" />
+    <Compile Include="LandRegistry\CreateLrap1SubmissionCommand.cs" />
     <Compile Include="LandRegistry\ICommsService.cs" />
+    <Compile Include="LandRegistry\ILrap1AttachmentRepository.cs" />
+    <Compile Include="LandRegistry\Lrap1Attachment.cs" />
     <Compile Include="LandRegistry\Lrap1Submission.cs" />
     <Compile Include="LandRegistry\ResponseType.cs" />
     <Compile Include="LandRegistry\SubmitLrap1Result.cs" />

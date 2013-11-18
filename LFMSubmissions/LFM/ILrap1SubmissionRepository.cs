@@ -6,5 +6,6 @@ namespace LFM
     public interface ILrap1SubmissionRepository
     {
         Lrap1Submission GetById(string applicationId);
+        void Save(Lrap1Submission lrap1Submission);
     }
 }
