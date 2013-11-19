@@ -11,6 +11,11 @@ namespace LFM.ApplicationServices
     {
         private readonly SubmissionDataService _submissionDataService;
 
+        public CommandInvoker(SubmissionDataService submissionDataService)
+        {
+            _submissionDataService = submissionDataService;
+        }
+
         public void Execute<TCommand>(TCommand command)
         {
             throw new NotImplementedException();

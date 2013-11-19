@@ -5,8 +5,8 @@ namespace LFM.ApplicationServices.LandRegistry
 {
     public class SubmissionDataService : 
         IHandleQuery<Lrap1StatusQuery, Lrap1StatusQueryResult>, 
-        IHandleCommand<CreateLrap1SubmissionCommand,CreateLrap1SubmissionQueryResult>, 
-        IHandleCommand<CreateLrap1AttachmentCommand,CreateLrap1AttachmentQueryResult>
+        IHandleCommand<CreateLrap1SubmissionCommand, CreateLrap1SubmissionQueryResult>, 
+        IHandleCommand<CreateLrap1AttachmentCommand, CreateLrap1AttachmentQueryResult>
     {
         private readonly ILrap1SubmissionRepository _lrap1SubmissionRepository;
         private readonly ILrap1AttachmentRepository _lrap1AttachmentRepository;

@@ -15,32 +15,16 @@ namespace LFM.LandRegistry.SubmissionsService.UnitTests
         private readonly string _applicationId;
         private readonly Lrap1Package _package;
         private readonly ISendMessages _fakeMessageSender;
-        //private readonly SubmitLrap1Command _submitLrap1Command;
         private readonly SubmitLrap1Result _response;
-        private readonly ILrap1SubmissionRepository _fakeLrap1SubmissionRepository;
-        private readonly ILrap1AttachmentRepository _fakeLrap1AttachmentRepository;
-        private readonly Lrap1Submission _lrap1Submission;
-
-        private readonly SubmissionDataService _submissionDataService;
+        private readonly ICommandInvoker _fakeCommandInvoker;
 
         public When_the_submissions_service_is_asked_to_send_an_LRAP1_package()
         {
             _applicationId = "01234567890";
             _username = "LRUser001";
             _password = "BGPassword01";
-            _fakeLrap1SubmissionRepository = A.Fake<ILrap1SubmissionRepository>();
-            _fakeLrap1AttachmentRepository = A.Fake<ILrap1AttachmentRepository>();
 
-
-            var fakeSubmissionDataService =
-                A.Fake<IHandleCommand<CreateLrap1SubmissionCommand, CreateLrap1SubmissionQueryResult>>();
-
-
-
-
-           //var fakeSubmissionDataService = A.Fake<object>(x => x.Implements<IHandleCommand<CreateLrap1SubmissionCommand,CreateLrap1SubmissionQueryResult>>().Implements<IHandleCommand<CreateLrap1AttachmentCommand,CreateLrap1AttachmentQueryResult>>());
-
-            _submissionDataService = new SubmissionDataService(_fakeLrap1SubmissionRepository, _fakeLrap1AttachmentRepository);
+            _fakeCommandInvoker = A.Fake<ICommandInvoker>();
 
             var attachments = new List<Lrap1Attachment>
             {
@@ -53,6 +37,33 @@ namespace LFM.LandRegistry.SubmissionsService.UnitTests
                 Payload = "Lrap1 Payload Data",
                 Attachments = attachments
             };
+
+            A.CallTo(
+                () =>
+                    _fakeCommandInvoker.Execute<CreateLrap1SubmissionCommand, CreateLrap1SubmissionQueryResult>(
+                        A<CreateLrap1SubmissionCommand>.Ignored)).Returns(new CreateLrap1SubmissionQueryResult()
+                        {
+                            Command = new CreateLrap1SubmissionCommand()
+                                {
+                                    ApplicationId = _applicationId,
+                                    Username = _username,
+                                    Payload = _package.Payload
+                                }
+                        });
+
+            A.CallTo(
+                () =>
+                    _fakeCommandInvoker.Execute<CreateLrap1AttachmentCommand, CreateLrap1AttachmentQueryResult>(
+                        A<CreateLrap1AttachmentCommand>.Ignored)).Returns(new CreateLrap1AttachmentQueryResult()
+                        {
+                            Command = new CreateLrap1AttachmentCommand()
+                            {
+                                AttachmentId = "98765",
+                                ApplicationId = _applicationId,
+                                Username = _username,
+                                Payload = _package.Payload
+                            }
+                        });
 
             _fakeMessageSender = A.Fake<ISendMessages>();
 
@@ -71,26 +82,31 @@ namespace LFM.LandRegistry.SubmissionsService.UnitTests
                         }
                     });
 
-            var sut = new Lrap1SubmissionService(_fakeMessageSender, _submissionDataService);
+            var sut = new Lrap1SubmissionService(_fakeMessageSender, _fakeCommandInvoker);
             _response = sut.Submit(_username, _password, _package);
         }
         
         [Fact]
         public void the_submission_is_saved_to_the_database()
         {
-            A.CallTo(()=> _fakeLrap1SubmissionRepository.Save(A<Lrap1Submission>
-                .That.Matches(x=> x.Username == _username && x.Payload == _package.Payload))).MustHaveHappened(Repeated.Exactly.Once);
+            A.CallTo(() => _fakeCommandInvoker
+                    .Execute<CreateLrap1SubmissionCommand, CreateLrap1SubmissionQueryResult>(A<CreateLrap1SubmissionCommand>
+                        .That.Matches(c => 
+                            c.Username == _username &&
+                            c.Payload == _package.Payload)))
+                .MustHaveHappened(Repeated.Exactly.Once);
         }
 
         [Fact]
         public void the_first_attachment_is_saved_to_the_database()
         {
-            // TODO: Ensure ApplicationID is OK
-            A.CallTo(()=>_fakeLrap1AttachmentRepository.Save(A<LFM.LandRegistry.Lrap1Attachment>
-                .That.Matches(x => /*x.ApplicationId == _response.Command.ApplicationId && */
-                                x.Username ==_username && 
-                                x.Payload == _package.Attachments[0].Payload)))
-                    .MustHaveHappened(Repeated.Exactly.Once);
+            A.CallTo(() => _fakeCommandInvoker
+                    .Execute<CreateLrap1AttachmentCommand, CreateLrap1AttachmentQueryResult>(A<CreateLrap1AttachmentCommand>
+                        .That.Matches(c => 
+                            c.ApplicationId == _applicationId &&
+                            c.Username == _username &&
+                            c.Payload == _package.Attachments[0].Payload)))
+                .MustHaveHappened(Repeated.Exactly.Once);
         }
         
         [Fact]
@@ -106,9 +122,8 @@ namespace LFM.LandRegistry.SubmissionsService.UnitTests
         [Fact]
         public void the_first_attachment_is_sent_to_the_messaging_service()
         {
-            // TODO: Ensure ApplicationID is OK
             A.CallTo(() => _fakeMessageSender.Send(A<SubmitLrap1AttachmentCommand>.That.Matches(
-                c => /*c.ApplicationId == _applicationId && */
+                c => c.ApplicationId == _applicationId && 
                      c.Username == _username &&
                      c.Password == _password &&
                      c.Payload == _package.Attachments[0].Payload)))
@@ -118,9 +133,8 @@ namespace LFM.LandRegistry.SubmissionsService.UnitTests
         [Fact]
         public void the_second_attachment_is_sent_to_the_messaging_service()
         {
-            // TODO: Ensure ApplicationID is OK
             A.CallTo(() => _fakeMessageSender.Send(A<SubmitLrap1AttachmentCommand>.That.Matches(
-                c => /*c.ApplicationId == _applicationId &&*/
+                c => c.ApplicationId == _applicationId &&
                      c.Username == _username &&
                      c.Password == _password &&
                      c.Payload == _package.Attachments[1].Payload)))

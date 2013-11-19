@@ -4,6 +4,7 @@ using System.IO;
 using System.Windows;
 using LFM.ApplicationServices;
 using LFM.ApplicationServices.LandRegistry;
+using LFM.Infrastructure;
 using LFM.Infrastructure.LandRegistry;
 using LFM.LandRegistry.SubmissionsService;
 using LFM.MessageService;
@@ -22,7 +23,12 @@ namespace LFM.Submissions.Client
 
         private void submitLRAP1Button_Click(object sender, RoutedEventArgs e)
         {
-            var submissionService = new Lrap1SubmissionService(new MessageSender(App.Bus));
+            var submissionService = new Lrap1SubmissionService(
+                new MessageSender(App.Bus), 
+                new CommandInvoker(
+                    new SubmissionDataService(
+                        new Lrap1SubmissionRepository(), 
+                        new Lrap1AttachmentRepository())));
             
             var attachments = new List<Lrap1Attachment>
             {
@@ -44,7 +50,10 @@ namespace LFM.Submissions.Client
 
         private void getStatusButton_Click(object sender, RoutedEventArgs e)
         {
-            var queryInvoker = new QueryInvoker(new SubmissionDataService(new Lrap1SubmissionRepository()));
+            var queryInvoker = new QueryInvoker(
+                new SubmissionDataService(
+                    new Lrap1SubmissionRepository(),
+                    new Lrap1AttachmentRepository()));
             var result = queryInvoker.Query<Lrap1StatusQuery,Lrap1StatusQueryResult>(new Lrap1StatusQuery() {ApplicationId = applicationIdTextBox.Text});
             MessageBox.Show("Application Status: " + result.ResponseType.ToString(), "Status", MessageBoxButton.OK);
         }

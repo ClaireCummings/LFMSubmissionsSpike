@@ -8,26 +8,26 @@ namespace LFM.LandRegistry.SubmissionsService
     public class Lrap1SubmissionService 
     {
         private readonly ISendMessages _messageSender;
-        private readonly SubmissionDataService _submissionDataService;
+        private readonly ICommandInvoker _commandInvoker;
 
-        public Lrap1SubmissionService(ISendMessages messageSender, SubmissionDataService submissionDataService )
+        public Lrap1SubmissionService(ISendMessages messageSender, ICommandInvoker commandInvoker )
         {
             _messageSender = messageSender;
-            _submissionDataService = submissionDataService;
+            _commandInvoker = commandInvoker;
         }
 
         public SubmitLrap1Result Submit(string username, string password, Lrap1Package lrap1Package)
         {
             var applicationId = Guid.NewGuid().ToString();
 
-            var saveResult = _submissionDataService.Execute(new CreateLrap1SubmissionCommand()
+            var saveResult = _commandInvoker.Execute<CreateLrap1SubmissionCommand, CreateLrap1SubmissionQueryResult>(new CreateLrap1SubmissionCommand()
             {
                 ApplicationId = applicationId,
                 Username = username,
                 Payload = lrap1Package.Payload
             });
 
-            var saveAttachmentResult = _submissionDataService.Execute(new CreateLrap1AttachmentCommand()
+            var saveAttachmentResult = _commandInvoker.Execute<CreateLrap1AttachmentCommand, CreateLrap1AttachmentQueryResult>(new CreateLrap1AttachmentCommand()
             {
                 AttachmentId = Guid.NewGuid().ToString(),
                 ApplicationId = saveResult.Command.ApplicationId,
